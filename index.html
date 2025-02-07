@@ -9,32 +9,50 @@
     <title></title>
 </head>
 
-<body >
-    <div id="root" > </div>
+<body>
+    <div id="root"> </div>
     <script type="module">
-import { h, createApp } from "./node_modules/vue/dist/vue.esm-browser.prod.js";
+        import { h, createApp } from "./node_modules/vue/dist/vue.esm-browser.prod.js";
         //Login est un objet , et est en MAJ 
         const Login = {
             data() {
 
                 return {
-                    username: "alex",
-                    password: "sarah"
+                    email: " ",
+                    password: ""
                 }
+            },
+            methods: {
+                handleSubmit(event) {
+                    event.preventDefault();
+                    if (!this.email || !this.password) {
+                        alert('veuillez remplir tous les champs ');
+                    }
+                    if (this.email.trim() === 'zeynarista@gmail.com' && this.password.trim() === '1234') {
+                        alert('connexion reussie');
+
+                    } else {
+                        alert('identifiants incorrects');
+
+                    }
+                }
+
             },
             // c'est le dom virtual
 
             render() {
-                return h('section', {}, [
-                    h('h1', {class:"text-3xl font-bold text-gray-900 max-w-md mx-auto  p-6  "}, 'Connexion'),
-                    h('form', {class:"max-w-md mx-auto bg-white p-6 rounded-lg shadow-md"}, [
+                return h('section', { onsubmit: this.handleSubmit }, [
+                    h('h1', { class: "text-3xl font-bold text-gray-900 max-w-md mx-auto  p-6  " }, 'Connexion'),
+                    h('form', { class: "max-w-md mx-auto bg-white p-6 rounded-lg shadow-md" }, [
                         h('label', { for: 'email' }, 'Email : '),
-                        h('input', { type: 'email', placeholder: 'Email', id: 'email', name: 'email' ,class:"mt-1 block w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                    }),
+                        h('input', {
+                            type: 'email', placeholder: 'Email', id: 'email', name: 'email', value: this.email, onInput: (event) => (this.email = event.target.value), class: "mt-1 block w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                        }),
                         h('label', { for: 'password' }, 'Password : '),
-                        h('input', { type: 'password', placeholder: 'password', id: 'password', name: 'password' ,class:"mt-1 block w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 "
-                          }),
-                        h('button', { type: 'submit' , class:'w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 mt-4 transition-transform transform hover:scale-105 active:scale-95 , bg-yellow-500' }, 'Envoyer')
+                        h('input', {
+                            type: 'password', placeholder: 'password', id: 'password', name: 'password', value: this.password, onInput: (event) => (this.password = event.target.value), class: "mt-1 block w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 "
+                        }),
+                        h('button', { type: 'submit', class: 'w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 mt-4 transition-transform transform hover:scale-105 active:scale-95 , bg-yellow-500' }, 'Envoyer')
                     ])
                 ]
 
